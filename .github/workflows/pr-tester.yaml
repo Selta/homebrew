@@ -13,6 +13,10 @@ on:
         description: 'The target branch to check against'
         required: false
         default: 'main'
+      PR_NUMBER:
+        description: 'The pull request number (required for manual runs)'
+        required: false
+        default: ''
       min_approvals:
         description: 'Minimum number of approvals required'
         required: false
@@ -98,4 +102,101 @@ jobs:
             exit 1
           else
             echo "PR has sufficient approvals ($APPROVAL_COUNT/$MIN_APPROVALS)"
+          fi
+  
+  check-critical-status:
+    name: Critical Status Checks
+    runs-on: ubuntu-latest
+    # Skip this job if no critical checks are specified
+    if: ${{ inputs.critical_checks = '' }}
+    steps:
+      - name: Check critical status checks
+        id: check-critical-status
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          CRITICAL_CHECKS: ${{ inputs.critical_checks }}
+        run: |
+          echo "Checking critical status checks: $CRITICAL_CHECKS"
+          
+          # Convert comma-separated list to array
+          IFS=',' read -r -a CHECK_NAMES <<< "$CRITICAL_CHECKS"
+          
+          # Get all check runs for the PR's head commit
+          CHECK_RUNS=$(gh api \
+            repos/$REPO/commits/$HEAD_SHA/check-runs \
+            --jq '.check_runs')
+          
+          # Get statuses (older style status checks)
+          STATUSES=$(gh api \
+            repos/$REPO/commits/$HEAD_SHA/status \
+            --jq '.statuses')
+          
+          # Track failing checks
+          FAILING_CHECKS=()
+          PENDING_CHECKS=()
+          
+          # Function to check if a name is in our critical checks list
+          is_critical_check() {
+            local check_name="$1"
+            for critical in "${CHECK_NAMES[@]}"; do
+              # Trim whitespace
+              critical=$(echo "$critical" | xargs)
+              if [[ "$check_name" == "$critical" ]]; then
+                return 0
+              fi
+            done
+            return 1
+          }
+          
+          # Process check runs
+          echo "Processing check runs..."
+          for check_name in $(echo "$CHECK_RUNS" | jq -r '.[].name'); do
+            if is_critical_check "$check_name"; then
+              conclusion=$(echo "$CHECK_RUNS" | jq -r ".[] | select(.name == \"$check_name\") | .conclusion")
+              status=$(echo "$CHECK_RUNS" | jq -r ".[] | select(.name == \"$check_name\") | .status")
+              
+              echo "Critical check found: $check_name (status: $status, conclusion: $conclusion)"
+              
+              if [[ "$status" != "completed" ]]; then
+                PENDING_CHECKS+=("$check_name")
+              elif [[ "$conclusion" != "success" && "$conclusion" != "neutral" ]]; then
+                FAILING_CHECKS+=("$check_name")
+              fi
+            fi
+          done
+          
+          # Process statuses
+          echo "Processing status checks..."
+          for context in $(echo "$STATUSES" | jq -r '.[].context'); do
+            if is_critical_check "$context"; then
+              state=$(echo "$STATUSES" | jq -r ".[] | select(.context == \"$context\") | .state")
+              
+              echo "Critical status found: $context (state: $state)"
+              
+              if [[ "$state" == "pending" ]]; then
+                PENDING_CHECKS+=("$context")
+              elif [[ "$state" != "success" ]]; then
+                FAILING_CHECKS+=("$context")
+              fi
+            fi
+          done
+          
+          # Report results
+          if [[ ${#FAILING_CHECKS[@]} -gt 0 || ${#PENDING_CHECKS[@]} -gt 0 ]]; then
+            echo "::error::Critical checks are failing or pending!"
+            
+            if [[ ${#FAILING_CHECKS[@]} -gt 0 ]]; then
+              echo "::error::Failing checks: ${FAILING_CHECKS[*]}"
+            fi
+            
+            if [[ ${#PENDING_CHECKS[@]} -gt 0 ]]; then
+              echo "::error::Pending checks: ${PENDING_CHECKS[*]}"
+            fi
+            
+            exit 1
+          else
+            echo "✅ All critical status checks are passing"
           fi
