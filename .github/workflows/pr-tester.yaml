@@ -1,0 +1,78 @@
+# This workflow validates that PRs meet specific criteria before merging. 
+# Some of the arguments may be passed in at run time.
+
+name: Pull Request (PR) Checker
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+# Clamp down on permissions to read only
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  check-against-target:
+    # Assumptions made
+    # 1. The task says to use git commands, so I am using git cli to get branch information.
+    # 2. The tasks mentions `main` and `develop` branches, but I am not sure if this needs limited to those, or if any should be accepted as an `input`.
+    name: Check branch freshness
+    id: check-freshness
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout reop
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name : Check branch against target
+        shell: bash
+        run: |
+          SOURCE_BRANCH="${{ github.event.pull_request.base.ref}}"
+          TARGET_BRANCH="${{ inputs.target-branch || 'main' }}"
+
+          if [[ "SOURCE_BRANCH" != "$TARGET_BRANCH" ]]; then
+            echo "Check is not needed, not merging into $TARGET_BRANCH"
+            exit 0
+          fi
+
+          git fetch origin $TARGET_BRANCH
+
+          BASE_SHA=$(git rev-parse refs/remotes/origin/$TARGET_BRANCH)
+          MERGE_BASE=$(git merge-base refs/remotes/origin/$TARGET_BRANCH HEAD)
+
+          if [[ "$BASE_SHA =/= $MERGE_BASE" ]]; then
+            COMMIT_COUNT=$(git rev-list --count $MERGE_BASE..$BASE_SHA)
+            echo "Error: Your branch is $COMMIT_COUNT commit(s) behind $TARGET_BRANCH and cannot be merged."
+            echo "Please rebase or merge latest changes from $TARGET_BRANCH into your branch."
+            exit 1
+          else
+            echo "Branch is up to date with $TARGET_BRANCH."
+          fi
+
+  check-approvers:
+    name: Check for required amount of approvers
+    id: check-approvers
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Approver Counts
+        env:
+          # GitHub automatically creates a unique GITHUB_TOKEN secret to use 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication
+          PR_NUM: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+          MIN_APPROVALS: ${{ inputs.min-approvers || 1 }}
+        run: |
+          APPROVE_COUNT=$(gh api repos/$REPO/pulls/$PR_NUM/reviews --jq '[.[] | select(.state == "APPROVED")] | length')
+          if [[ "$APPROVE_COUNT" -lt "$MIN_APPROVALS" ]]; then
+            echo "Error: Your PR has $APPROVE_COUNT approval(s), but requires at least $MIN_APPROVALS before merging. Please request additional reviews."
+
+inputs:
+  target_branch:
+    description: 'The target branch to check against'
+    required: false
+    default: 'main'
+  min-approvers:
+    description: 'The minimum number of required approvers before merging'
+    required: false
+    default: '1'
