@@ -5,8 +5,18 @@ name: Pull Request (PR) Checker
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    types: [opened, synchronize, reopened]
+  # Allow manual triggering:
   workflow_dispatch:
+    inputs:
+    target_branch:
+      description: 'The target branch to check against'
+      required: false
+      default: 'main'
+    min-approvers:
+      description: 'The minimum number of required approvers before merging'
+      required: false
+      default: '1'
 
 # Clamp down on permissions to read only
 permissions:
@@ -65,13 +75,3 @@ jobs:
           APPROVE_COUNT=$(gh api repos/$REPO/pulls/$PR_NUM/reviews --jq '[.[] | select(.state == "APPROVED")] | length')
           if [[ "$APPROVE_COUNT" -lt "$MIN_APPROVALS" ]]; then
             echo "Error: Your PR has $APPROVE_COUNT approval(s), but requires at least $MIN_APPROVALS before merging. Please request additional reviews."
-
-inputs:
-  target_branch:
-    description: 'The target branch to check against'
-    required: false
-    default: 'main'
-  min-approvers:
-    description: 'The minimum number of required approvers before merging'
-    required: false
-    default: '1'
