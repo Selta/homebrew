@@ -18,7 +18,6 @@ jobs:
     # 1. The task says to use git commands, so I am using git cli to get branch information.
     # 2. The tasks mentions `main` and `develop` branches, but I am not sure if this needs limited to those, or if any should be accepted as an `input`.
     name: Check branch freshness
-    id: check-freshness
     runs-on: ubuntu-latest
     steps:
       - name: Checkout reop
@@ -52,7 +51,6 @@ jobs:
 
   check-approvers:
     name: Check for required amount of approvers
-    id: check-approvers
     runs-on: ubuntu-latest
     steps:
       - name: Check Approver Counts
