@@ -6,6 +6,7 @@ name: Pull Request (PR) Checker
 on:
   pull_request:
     types: [opened, edited, synchronize, reopened]
+  workflow_dispatch:
 
 # Clamp down on permissions to read only
 permissions:
