@@ -108,7 +108,7 @@ jobs:
     name: Critical Status Checks
     runs-on: ubuntu-latest
     # Skip this job if no critical checks are specified
-    if: ${{ inputs.critical_checks = '' }}
+    if: ${{ inputs.critical_checks == '' }}
     steps:
       - name: Check critical status checks
         id: check-critical-status
