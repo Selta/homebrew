@@ -9,20 +9,20 @@
     - For fermenting >58°F but <65°F, Lalvin 71-b-1122
 4. Go-Ferm
 4. Nutrient (rec: Fermaid-0)
-5. Campden Tablets (Potassium Metabisulfite)
+5. Campden Tablets (Potassium Metabisulfite)  stupid stuff for a PR  
 6. Potassium Sorbate
 7. 2 Carboys
-    - Ideally ones with large "mouths" or openings
+    - Ideally ones with large "mouths" or openings  stupid stuff for a PR  
 8. One or two airlocks
 9. Hydrometer
 10. StarSan Concentrate sanitizer
 11. Distilled water (for diluting StarSan)
-12. Spray Bottle
+12. Spray Bottle  stupid stuff for a PR  
 13. Temperature gauge
 14. Large/tall mixing spoon
 15. Small jar (rec: Mason jar, 16Oz), for mixing
 16. Racking Cane
-17. Super-kleer
+17. Super-kleer  stupid stuff for a PR  
 18. Optionals:
     - Fruit (flavoring)
     - Spices (flavoring)
@@ -48,7 +48,7 @@
 4. After the Go-Ferm is fully dissolved, sprinkle the yeast on top of the liquid
 5. Gently swirl the mixture to mix in the yeast. It does not need to dissolve, it will sink on its own
 6. Loosely cover the jar (do not seal it, pressure needs to escape) and set it aside
-    - Check the time, or set a 20 minute timer
+    - Check the time, or set a 20 minute timer  stupid stuff for a PR  
     - You will want this mixture to sit for at least 20 minutes before combining with the Must
 
 ## Phase 2: Equipment Cleaning/Prep
@@ -57,11 +57,11 @@
     - When made with distilled water, a batch should last several months in a sealed container
 2. Spray anything that may come in contact with your mead with the diluted StarSan 
     - one of your carboys 
-    - one airlock 
+    - one airlock   stupid stuff for a PR  
     - hydrometer 
     - stirring spoon
     - temperature gauge
-    - etc.
+    - etc.  stupid stuff for a PR  
 3. Let everything drip (over a bucket or down a sink) until the liquid has run completely off
     - Any leftover foam will not hurt anything, including yourself
     - DO NOT rinse or wipe off
@@ -70,20 +70,20 @@
 ### This is where you start making your own decisions. Following these steps closely will end up with potentially a 14% ABV Mead. Changing the amount of honey will change ABV, but most yeast will "max out" between 12 and 16% ABV -- exceeding 18% ABV is diffciult.
 ### Instructions assuming 1 gallon of Mead
 1. Pour 3 lbs of honey into the carboy
-2. Pour in 1 gallon of spring water
+2. Pour in 1 gallon of spring water  stupid stuff for a PR  
 3. Vigorously mix the honey and water
     - There must be no "solid" honey left, it should be fully dissolved
     - The more you can agitate, the more oxygen you introduce to the mixture as well, which help the yeast in the very early stages
 4. After mixing, insert your (sanitized) hydrometer to the mixture - it should read about 1.100
     - THis would be roughly a 14.2% ABV *potential* mead
 5. If 20 or more minutes have passed since completing Phase 1 (Yeast Culture) AND the temperature difference between the Yeast Culture and the Must is less than 10°F, proceed
-    - If the tempertaure delta is higher than 10°F, slowly raise one or the other to match. Never exceed 104°F.
+    - If the tempertaure delta is higher than 10°F, slowly raise one or the other to match. Never exceed 104°F.  stupid stuff for a PR  
 6. Pour the entire container of Yeast Culture into the Must
 7. Stir the resulting mixture well
-8. Firmly attach the lid to the carboy
+8. Firmly attach the lid to the carboy  stupid stuff for a PR  
 9. Attach the airlock to the lid
 
-## Phase 4: Fermenting (patience)
+## Phase 4: Fermenting (patience)  stupid stuff for a PR  
 ### When talking about temperature, it is the temperature of the Must, not the room/ambient. The Must will likely be 2-5° above ambient. Choose your yeast based off of this - most yeast will produce off flavors at higher temperatures.
 1. Place the carboy in a cool room, avoiding direct sunlight
     - Sunlight doesn't have a direct impact on mead (unlike beer), however it may raise the temperature, causing issues
@@ -93,12 +93,12 @@
     - It is a good idea to mix the nutrient in a small amount of warm water before pouring into the carboy. If you pour  the powder straight in, the chances are high there will be a reaction causing bubbling and spillage
 3. Repeat step 2 at the 48 and 96 hour marks
 4. Every day for the first 6 days, pick up the carboy and gently swirl it around. This will:
-    - Keep yeast floating
+    - Keep yeast floating  stupid stuff for a PR  
     - Push some CO2 out (you should see additional bubbling in your airlock)
     - This can be done immediately prior to adding the nutrients
-5. After day 6, you simply need to periodically check the airlock to ensure it still has appropriate liquid level
+5. After day 6, you simply need to periodically check the airlock to ensure it still has appropriate liquid level  stupid stuff for a PR  
 
-## Phase 5: Ferment Done?
+## Phase 5: Ferment Done?  stupid stuff for a PR  
 1. Fermenting will continue for at least 2 - 4 weeks. If the bubbles in the airlock have slowed or stopped, it may be near complete
 2. Pour a sample into a (sanitized) test tube, and then insert your (sanitized) hydrometer.
     - If your hydrometer measures under 1.000, fermention is complete
@@ -109,10 +109,10 @@
 *The next three Phases can be completed with no waiting in between*
 ## Phase 6: Racking and Stabilizing
 1. Two days before racking, move your full carboy to the table you will do the racking at
-    - This will allow any sediment shaken up to re-settle before racking
+    - This will allow any sediment shaken up to re-settle before racking  stupid stuff for a PR  
 2. Sanitize your second carboy with StarSan, and allow the excess to drain
 3. Crush a tablet of campden and put it into the empty carboy
-4. Put 0.6 - 0.8 grams of Potassium Sorbate into the empty carboy
+4. Put 0.6 - 0.8 grams of Potassium Sorbate into the empty carboy  stupid stuff for a PR  
 5. Using the (sanitized) racking cane, transfer the mead to the new carboy
     - Be sure to only pull liquid above the sediment (which is dead yeast)
 
@@ -120,7 +120,7 @@
 If you do not want to sweet or add flavors, you may skip this entirely  
 Adding fruits and spices can be tricky and difficult
 1. Add your fruits, spices, or honey into your (cleaned, sanitized) carboy
-2. Most fruits and spices will pull their flavor in 2 to 3 weeks
+2. Most fruits and spices will pull their flavor in 2 to 3 weeks  stupid stuff for a PR  
 3. After you are happy with the flavor, rack a second to to a clean, sanitized carboy
 
 ## Phase 8: Clearing your Mead
